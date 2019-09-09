@@ -1,0 +1,26 @@
+<annotation verified="yes">
+	<folder>images</folder>
+	<filename>img00464.png</filename>
+	<path>E:\OneDrive\Dokumenter\GitHub\Fire\images\img00464.png</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>640</width>
+		<height>480</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>fire</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>239</xmin>
+			<ymin>192</ymin>
+			<xmax>325</xmax>
+			<ymax>331</ymax>
+		</bndbox>
+	</object>
+</annotation>
