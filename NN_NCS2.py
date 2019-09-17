@@ -1,20 +1,20 @@
 import cv2 as cv
 
 # Load the model.
-net = cv.dnn.readNet('face-detection-adas-0001.xml',
-                     'face-detection-adas-0001.bin')
+net = cv.dnn.readNet('model.xml',
+                     'model.bin')
                      
 # Specify target device.
 net.setPreferableTarget(cv.dnn.DNN_TARGET_MYRIAD)
 
 # Read an image.
-frame = cv.imread('/path/to/image')
+frame = cv.imread('images/img00096.png')
 
 if frame is None:
     raise Exception('Image not found!')
 
 # Prepare input blob and perform an inference.
-blob = cv.dnn.blobFromImage(frame, size=(672, 384), ddepth=cv.CV_8U)
+blob = cv.dnn.blobFromImage(frame, size=(416, 416), ddepth=cv.CV_8U)
 net.setInput(blob)
 out = net.forward()
 
