@@ -10,9 +10,10 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
 	with conn:
 		print('Connected by', addr)
 		while True:
-			data = conn.recv(1024).decode()
+			data = c
+			onn.recv(1024).decode()
 			if data == 'request_angle':
-				answer = '17:22'
+				answer = '-17:22'
 				print(str(data))
 			elif data == 'shutdown':
 				break
