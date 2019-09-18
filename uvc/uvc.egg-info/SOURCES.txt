@@ -1,0 +1,8 @@
+README.md
+setup.py
+uvc.c
+uvc.egg-info/PKG-INFO
+uvc.egg-info/SOURCES.txt
+uvc.egg-info/dependency_links.txt
+uvc.egg-info/requires.txt
+uvc.egg-info/top_level.txt
