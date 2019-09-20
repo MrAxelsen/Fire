@@ -9,6 +9,7 @@ import socket
 
 HOST = '127.0.0.1'  # Standard loopback interface address (localhost)
 PORT = 65433        # Port to listen on (non-privileged ports are > 1023)
+img_path = 'pics/flir/'
 
 try:
   from queue import Queue
@@ -60,11 +61,12 @@ def display_temperature(img, val_k, loc, color):
   cv2.line(img, (x - 2, y), (x + 2, y), color, 1)
   cv2.line(img, (x, y - 2), (x, y + 2), color, 1)
 
-def main(conn):
+def main(conn, c):
   ctx = POINTER(uvc_context)()
   dev = POINTER(uvc_device)()
   devh = POINTER(uvc_device_handle)()
   ctrl = uvc_stream_ctrl()
+  imgi = 0
 
   res = libuvc.uvc_init(byref(ctx), 0)
   if res < 0:
@@ -125,14 +127,15 @@ def main(conn):
             conn.sendall(answer.encode())
           except BlockingIOError:
             pass
-          '''
           img = raw_to_8bit(data)
           display_temperature(img, maxVal, maxLoc, (0, 0, 255))
-          cv2.imshow('Lepton Radiometry', img)
-          cv2.waitKey(1)
+          filename = 'flir' + str(imgi).zfill(4)
+          imgi = imgi + 1
+          cv2.imwrite(img_path + filename + '.png', img)
+          #cv2.imshow('Lepton Radiometry', img)
+          #cv2.waitKey(1)
 
-        cv2.destroyAllWindows()
-        '''
+        #cv2.destroyAllWindows()
       finally:
         libuvc.uvc_stop_streaming(devh)
 
