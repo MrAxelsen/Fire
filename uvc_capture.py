@@ -105,6 +105,9 @@ def main(conn, c):
         exit(1)
 
       try:
+        startfile = open('starttime', 'w+')
+        startfile.write(str(time.time()))
+        startfile.close()
         while True:
           data = q.get(True, 500)
           if data is None:
@@ -132,6 +135,9 @@ def main(conn, c):
           filename = 'flir' + str(imgi).zfill(4)
           imgi = imgi + 1
           cv2.imwrite(img_path + filename + '.png', img)
+          endfile = open('endtime', 'w+')
+          endfile.write(str(imgi)+ '\n' + str(time.time()))
+          endfile.close()
           #cv2.imshow('Lepton Radiometry', img)
           #cv2.waitKey(1)
 
