@@ -25,7 +25,7 @@ parser = argparse.ArgumentParser(description='merge the data of two paths. creat
 parser.add_argument('sourcepath1', type=str, help='path to the first source')
 parser.add_argument('sourcepath2', type=str, help='path to the second source')
 parser.add_argument('destpath', type=str, help='path to the merge destination')
-parser.add_argument('--validtxt', type=int, help='set to 1 if you want to create a validation set (default wont create valid.txt)', default=0)
+parser.add_argument('--validtxt', type=int, help='set validation set ratio, if you want to create a validation set (default=0 wont create valid.txt). 2 for half, 3 for one third etc.', default=0)
 
 args = parser.parse_args()
 
@@ -42,7 +42,7 @@ else:
     exit()
 if args.validtxt == 0:
     print('Will not create validation set')
-elif args.validtxt == 1:
+elif args.validtxt > 0:
     print('Creating validation set')
 else:
     print('Error: invalid validtxt value: ' + str(args.validtxt))
@@ -91,7 +91,6 @@ for file in txt2:
     copyfile(file, destpath + '/img/' + name)
     progress = progress + 1
     bar.update(progress)
-    lasttxt = file
 
 #print('Copying img files from source 2')
 i = lastname
@@ -101,9 +100,37 @@ for file in img2:
     copyfile(file, destpath + '/img/' + name)
     progress = progress + 1
     bar.update(progress)
-    lastimg = file
 
-if validtxt:
-    print('Creating train.txt and valid.txt')
-else:
+print('Writing train.txt')
+progress = 0
+bar = progressbar.ProgressBar(max_value=i)
+if args.validtxt == 0:
     print('Creating train.txt')
+    train = open(destpath + "/train.txt","w+")
+    for j in range(i):
+        train.write(str(j).zfill(5) + '.png\n')
+        progress = progress + 1
+        bar.update(progress)
+    train.close()
+else:
+    trainn = 0
+    validn = 0
+    print('Creating train.txt and valid.txt')
+    train = open(destpath + "/train.txt","w+")
+    valid = open(destpath + "/valid.txt","w+")
+    for j in range(i):
+        if j % args.validtxt == 0:
+            valid.write(str(j).zfill(5) + '.png\n')
+            validn = validn + 1
+        else:
+            train.write(str(j).zfill(5) + '.png\n')
+            trainn = trainn + 1
+        progress = progress + 1
+        bar.update(progress)
+    print('')
+    print(trainn)
+    print(str(trainn), 'train images, ', validn , 'validation images. Resulting ratio: ', str(int(round((trainn/i),2)*100)), '/', str(int(round((validn/i),2)*100)))
+    valid.close()
+    train.close()
+
+
