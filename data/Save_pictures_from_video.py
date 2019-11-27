@@ -83,7 +83,7 @@ while cap.isOpened() :
 
     if( cv2.waitKey( 1 ) & 0xFF == ord('q') ):
         break;
-
+bar.finish()
 print("Number of frames in the video: " + str(length))
 print("Number of images saved: " + str(savedframes))
 print("Last frame saved: " + lastframe)
