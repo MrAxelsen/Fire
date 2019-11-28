@@ -1,3 +1,3 @@
 git add --all
-git commit -m "message"
+git -c user.name="MrAxelsen" -c user.email='joax@live.dk' commit -m "message"
 git push origin master
