@@ -242,6 +242,9 @@ def img2bg():
     return cv2pil(cv2.resize(img[y:y+scaledH, x:x+scaledW, :], (WIDTH,HEIGHT), interpolation = cv2.INTER_AREA))
 
 def drawboxes(bg, bboxes):
+	'''
+	takes an image (bg) and a list of boundingBoxes and draws the boxes on the image
+	'''
     for bbox in bboxes:
         #img = Image.new("RGBA", bg.size, (0,0,0,0))
         draw = ImageDraw.Draw(bg)
@@ -475,8 +478,8 @@ check 10. paste the object at random location at random size and update their bo
     check 10.b. if overlap is too big, try again
 
 TODO:
-fix draw boxes function
-
+Sometimes theres a problem with resizing the object paste. Sometimes the numbers are negative?? shouldn't be possible
+so there must be an error when determining the smallest dimension before deciding the scaling
 
 '''
 
